@@ -190,7 +190,7 @@ void readTriplets2(Game &game, int numSquares, string col2, int col1);
 
 void initializeBoard(Game &game, string col2, int col1);
 
-void initializeBoard2(Game &game, string col2, int col1);
+void initBoardStructReadBoardtxt(Game &game, string col2, int col1);
 
 SquareKind converterS(string question);
 
@@ -278,7 +278,7 @@ void fileReader2(Game &game) {
 
     game.board.numSquares = howMany(readerInt, readerString);
     //    initializeBoard(game, readerString, readerInt);
-    initializeBoard2(game, readerString, readerInt);
+    initBoardStructReadBoardtxt(game, readerString, readerInt);
     readTriplets2(game, game.board.numSquares,readerString, readerInt);
 }
 int howMany(int readerInt, string readerString) {
@@ -402,7 +402,7 @@ void initializeBoard(Game &game, string col2, int col1) {
     }
 }
 
-void initializeBoard2(Game &game, string col2, int col1) {
+void initBoardStructReadBoardtxt(Game &game, string col2, int col1) {
 
     ifstream reader;
     reader.open("board.txt");
