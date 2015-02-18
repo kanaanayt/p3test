@@ -178,13 +178,9 @@ int myMain(int argc, char *argv[]);
 /// SOME FUNCTIONS
 //////////////////////////////////////////////////////////////////
 
-void fileReader(Game &game);
-
 void fileReader2(Game &game);
 
 int howMany(int readerInt, string readerString);
-
-void readTriplets(Game &game, int numSquares, string col2, int col1);
 
 void readTriplets2(Game &game, int numSquares, string col2, int col1);
 
@@ -216,59 +212,6 @@ int main () {
     
 }
 
-void fileReader(Game &game) {
-
-    ifstream reader;
-    reader.open("board.txt");
-    
-    // a couple agents and readers
-    bool fileBeginning = 1;	
-    int readerInt = 0;
-    string readerString = "";
-    int col1 = 0;
-    string col2 = "";
-    string col3 = "";
-    int inc = 0;
-
-    game.board.numSquares = howMany(readerInt, readerString);
-    //    readTriplets(game, game.board.numSquares, readerString, readerInt);
-    initializeBoard(game, readerString, readerInt);
-    readTriplets2(game, game.board.numSquares,readerString, readerInt);
-    
-    reader >> readerString;
-    while(!reader.eof()) {
-
-	// cout << readerString << " is readerString";
-
-	// READS IN numSquares
-	if (readerString == "SQUARES" && fileBeginning) {
-
-	    fileBeginning = 0;
-	    reader >> readerInt;
-	    game.board.numSquares = readerInt;
-	    //      cout << game.board.numSquares
-	    //      cout << readerInt;
-	    //      cout << "is readerInt";
-
-	}
-    
-	// READS IN TRIPLETS AND MAKES BOARD
-
-	else {
-
-	    reader >> col1 >> col2 >> col3;
-
-	    if (inc == col1) {
-
-	    }
-
-	    else {
-
-	    }
-	}
-    }
-}
-
 void fileReader2(Game &game) {
     ifstream reader;
     reader.open("board.txt");
@@ -291,42 +234,7 @@ int howMany(int readerInt, string readerString) {
     return readerInt;
 }
 
-void readTriplets(Game &game, int numSquares, string col2, int col1) {
-    ifstream reader;
-    reader.open("board.txt");
 
-    string col3;
-    int inc = 0;
-
-    reader >> col2;
-    reader >> col1;
-
-    reader >> col1 >> col2 >> col3;
-    while(inc < numSquares) {
-       	if(col1 == inc) {
-	    if(col2 == "BEGIN" || col2 == "END") {	    
-		game.board.squares[inc].Slide.kind = converterS(col2);
-		game.board.squares[inc].Slide.color = converterC(col3);
-		cout << game.board.squares[inc].Slide.kind << "is the kind " << endl;
-		cout << game.board.squares[inc].Slide.color << " is the color " << endl;
-	    }	    
-	    else if(col2 == "HOMESQ" || col2 == "STARTSQ") {
-      		game.board.squares[inc].Ends.kind = converterS(col2);
-		game.board.squares[inc].Ends.color = converterC(col3);
-	    }
-	    cout << "I shoul'dn't be in here" << endl;
-	    reader >> col1 >> col2 >> col3;
-	    if(col1 == inc) inc = inc - 1;
-	}
-	else {
-	    game.board.squares[inc].Slide.kind = REGULAR;
-	    game.board.squares[inc].Ends.kind = REGULAR;
-	    game.board.squares[inc].Slide.color = NONE;
-	    game.board.squares[inc].Ends.color = NONE;   	    
-	}	
-       	inc = inc + 1;
-    }
-}
 
 void readTriplets2(Game &game, int numSquares, string col2, int col1) {
 
